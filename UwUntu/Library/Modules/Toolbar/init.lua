@@ -7,9 +7,6 @@ local mainFrame = UwU.mainFrame
 local RunningApps = Cache:GetStorage("RunningApps")
 local PinnedApps = DatastoreService:GetDatastore("PinnedApps")
 
-local lastUpdateTime = os.clock()
-local cooldownDuration = 0.05
-
 local Handler = {}
 
 -- main layouts of toolbar
@@ -27,6 +24,11 @@ local AppsContainer = Toolbar:addFlexbox()
     :setPosition(5, 1)
 
     :setBackground(false)
+
+basalt.debug(AppsContainer:getSpacing())
+basalt.debug(AppsContainer:getDirection())
+basalt.debug(AppsContainer:getJustifyContent())
+basalt.debug(AppsContainer:getWrap())
 
 local MiscContainer = Toolbar:addFrame()
     :setSize("parent.w*0.2", "parent.h")
@@ -53,25 +55,14 @@ Handler.AppManager.PinnedApps = {}
 
 function Handler.AppManager:Update()
 
-    -- small debounce, becouse AppsContainer:removeChildren() cant perform that fast :(
-    if os.clock() - lastUpdateTime < cooldownDuration then
-        return 
-    end
-    lastUpdateTime = os.clock()
-
+    -- getting keys
     Handler.AppManager.PinnedApps = PinnedApps:GetKeys()
     Handler.AppManager.RunningApps = RunningApps:GetKeys()
     AppsContainer:removeChildren()
 
-    for key, pinnedApp in ipairs(Handler.AppManager.PinnedApps) do
-        for key, runningApp in pairs(Handler.AppManager.RunningApps) do
-            if pinnedApp == runningApp then
-                Handler.AppManager.PinnedApps[key] = nil
-            end
-        end
-    end
-
+    -- adding pinned apps to list
     for index, app in pairs(Handler.AppManager.PinnedApps) do
+        basalt.debug(index, app)
         local props = PinnedApps:GetAsync(app)
         local item = AppsContainer:addFrame()
             :setBackground(colors.black)
@@ -80,11 +71,14 @@ function Handler.AppManager:Update()
             :loadLayout("/UwUntu/Library/Modules/Toolbar/layouts/app.xml", props)
     end
 
+    -- adding spacing to list
     local spacing = AppsContainer:addPane()
         :setBackground(false, "\127", colors.lightGray)
         :setSize(1, "parent.h")
 
+    -- adding active apps for list
     for index, app in pairs(Handler.AppManager.RunningApps) do
+        basalt.debug(index, app)
         local props = RunningApps:GetAsync(app)
         local item = AppsContainer:addFrame()
             :setBackground(colors.black)
@@ -94,6 +88,8 @@ function Handler.AppManager:Update()
 
         Hint:addHint(item, props.DisplayName)
     end
+
+    AppsContainer:updateLayout()
 end
 
 ----

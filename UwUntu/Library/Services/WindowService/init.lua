@@ -2,8 +2,6 @@ local basalt = UwU:GetService("Basalt")
 local Cache = UwU:GetService("Cache")
 local mainFrame = UwU.mainFrame
 local desktop = UwU.Frames.Desktop
-
-local rw, rh = mainFrame:getSize()
 ----
 local RunningApps = Cache:GetStorage("RunningApps")
 ----
@@ -14,6 +12,8 @@ function Window.new(props)
     local window = {}
     setmetatable(window, Window)
     window.ID = props.Name .. math.random(1, 10000000)
+
+    local rw, rh = mainFrame:getSize()
 
     --- creating window itself
 
@@ -132,6 +132,8 @@ function Window:ToggleVisibility()
 end
 
 function Window:Hide()
+    local rw, rh = mainFrame:getSize()
+
     self.Frame:animatePosition(rw + 1, rh + 1, 0.5)
     self.Hidden = true
 
@@ -139,14 +141,14 @@ function Window:Hide()
 end
 
 function Window:Show()
-    self.Frame:animatePosition(self.Frame.Position, 0.5)
+    self.Frame:animatePosition(self.PositionX, self.PositionY, 0.5)
     self.Hidden = false
 
     os.queueEvent(UwU:GetEvent("UpdateToolbar"))
 end
 
 function Window:ToggleFullscreen()
-    basalt.debug("HELLO WORLD FULLSCREEN!")
+    
 end
 
 return Window

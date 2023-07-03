@@ -1,0 +1,3 @@
+<frame id="main", width="3", height="2", bg="red"> 
+    <image id="image", width="3", height="2", path={props.Icon}/>
+</frame>

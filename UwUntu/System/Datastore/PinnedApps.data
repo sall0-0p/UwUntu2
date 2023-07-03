@@ -1,0 +1,15 @@
+{
+    ["Template"] = {
+        Name = "TemplateApp",
+        DisplayName = "Template",
+        Icon = "/UwUntu/System/Assets/Icons/app.bimg",
+        Path = "/UwUntu/Apps/Template/template.app",
+    },
+
+    ["Terminal"] = {
+        Name = "Terminal",
+        DisplayName = "Terminal",
+        Icon = "/UwUntu/Apps/Terminal/icon.bimg",
+        Path = "/UwUntu/Apps/Terminal/Terminal.app",
+    }
+}

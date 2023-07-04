@@ -1,1 +1,18 @@
-{}
+{
+  ASCII4547258 = {
+    Path = "/UwUntu/Apps/ASCII/ASCII.app",
+    Name = "ASCII",
+    Position = 73,
+    Hidden = false,
+    Icon = "/UwUntu/Apps/ASCII/icon.bimg",
+    DisplayName = "ASCII",
+  },
+  Shell6184271 = {
+    Path = "/UwUntu/Apps/Terminal/Terminal.app",
+    Name = "Shell",
+    Position = 63,
+    Icon = "/UwUntu/Apps/Terminal/icon.bimg",
+    Hidden = false,
+    DisplayName = "Shell",
+  },
+}
